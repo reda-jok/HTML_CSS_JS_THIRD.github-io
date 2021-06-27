@@ -50,6 +50,9 @@
 ul{
     list-style: none;
 }
+a{
+  text-decoration: none;
+}
 /*end global ruls */
 /*start components*/
 .sepcial{
@@ -74,9 +77,16 @@ align-items: center;
 /*Start header section */
 header{
   z-index: 3;
-  position: absolute;
+  position: fixed;
   left: 0;
   width: 100%;
+  
+}
+header.change{
+background-color: #171717;
+-webkit-transition: all 0.125s ease-in-out;
+  -moz-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
 }
 header .container{
     display: flex;
@@ -84,80 +94,100 @@ header .container{
     align-items: center;
     min-height: 97px;
 }
-header  .navbar{
+.navbar{
 display:flex;
 position: relative;
+
 }
-header  .navbar .burg-icon{
+.navbar .burg-icon{
+  position: fixed;
+  z-index: 11;
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-end;
     width: 35px;
+    cursor: pointer;
   }
-header  .navbar .burg-icon span{
-    height: 3px;
+.navbar .burg-icon.active{
+  right: 260px;
+}
+.navbar .burg-icon span{
     background-color:var(--main-color);
-    margin-bottom: 8px;
+    width: 40px;
+  height: 4px;
+  display: block;
+  border-radius: 2px;
+  -webkit-transition: all 0.125s ease-in-out;
+  -moz-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
   }
-header  .navbar .burg-icon span:first-child{
+/* header .burg-icon span:first-child{
     width: 100%;
-    transition: 0.3s;
-}
-header  .navbar .burg-icon span:nth-child(2){
+} */
+.burg-icon span:nth-child(2){
     width: 70%;
-  transition: 0.3s;
+  margin: 6px 0;
   }
-header  .navbar .burg-icon span:nth-child(3){
+.burg-icon span:nth-child(3){
     width: 50%;
-    transition: 0.3s;
 }
-header  .navbar .burg-icon:hover span{
+.burg-icon:hover span{
   width: 100%;
   transition: 0.3s;
 }
-header  .navbar .burg-icon ul {
-  display:none;
-  position: absolute;
-  padding: 0;
-  margin: 0;
-  min-width: 200px;
-  right: 0;
-  top: calc(100% + 15px);
-  background-color: black;
-  box-shadow: 5px 5px 20px 1px var(--main-color);
+.burg-icon span:first-child.active{
+  transform:rotate(45deg);
+  -ms-transform:rotate(45deg); /* IE 9 */
+  -webkit-transform:rotate(45deg); /* Opera, Chrome, and Safari */
+   margin-top: 15px;
 }
-header  .navbar .burg-icon ul::before {
-  content: "";
-    right: 0;
-    border-style: solid;
-    border-width: 15px;
-    border-color: transparent transparent var(--main-color) transparent;
-    top: -30px;
-    position: absolute;
+.burg-icon span:nth-child(2).active{
+  opacity: 0;
 }
-header .navbar .burg-icon ul li{
-  margin: 10px 0 25px 10px;
+.burg-icon span:last-child.active{
+  transform:rotate(-45deg);
+ -ms-transform:rotate(-45deg); /* IE 9 */
+ -webkit-transform:rotate(-45deg); /* Opera, Chrome, and Safari */
+ margin-top: -20px;
+ width: 100%;
 }
-header .navbar .burg-icon ul li a{
-  color: var(--main-color);
-  text-decoration: none;
-  transition: 0.3s;
+.slide-nav{
+  position: fixed;
+  top: 0;
+  background-color: #1f1f1fe6;
+  height: 100vh;
+  right: -330;
+  width: 325px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 10px 0px 10px 11px rgb(0 0 0 / 80%);
+  -webkit-transition: all 0.3 ease-in-out;
+  -moz-transition: all 0.3 ease-in-out;
+  transition: all 0.3 ease-in-out;
 }
-header .navbar .burg-icon ul li:hover a{
-  border: none;
-  box-shadow: 3px 12px 18px var(--main-color);
-  margin: 10px;
+@media (max-width:992px) {
+  .slide-nav{width: 225px;}
+  .navbar .burg-icon.active{
+    right: 160px;
+  }
   
 }
-header  .navbar .burg-icon:hover ul{
-  display: block;
+.slide-nav.active{
+  right: 0;
 }
-
+.slide-nav ul li {
+  font-size: 24px;
+  padding: 30px;
+  margin-bottom: 20px;
+}
+.slide-nav ul li a{
+  color: #bababa;
+}
 /*ENd header section */
 /*start landing section*/
 .landing{
   min-height: 100vh;
-  background-image: url(/imgs/main-cover.jpg);
+  background-image: url(../imgs/main-cover.jpg);
   background-size: cover;
 }
 .landing .container{
@@ -294,10 +324,14 @@ header  .navbar .burg-icon:hover ul{
   background-color:#f4f4f4;
 }
 .serv .container .boxs .progress-holder .progrs-bar span{
-  width: 80%;
+  width: 0%;
   display: block;
   height: 100%;
   background-color: var(--main-color);
+  transition: .3s;
+}
+.serv .container .boxs .progress-holder .progrs-bar span.change{
+  width:80%;
 }
 .serv .stats{
   background-color: black;
